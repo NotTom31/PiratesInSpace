@@ -1,0 +1,3 @@
+while (game) {
+	game = fun;
+}
