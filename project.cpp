@@ -2,10 +2,9 @@
 #include <stdlib.h>
 #include <cmath>
 
-#define M_PI 3.14159265358979323846
-float cameraX = 3.0f;
+float cameraX = 0.0f;
 float cameraY = 3.0f;
-float cameraZ = 5.0f;
+float cameraZ = 8.0f;
 
 void init(void) 
 {
@@ -14,9 +13,6 @@ void init(void)
 
     glEnableClientState (GL_VERTEX_ARRAY);
     glEnableClientState (GL_COLOR_ARRAY);
-
-    
-
 }
 
 GLfloat groundVertices[][3] = {
@@ -26,46 +22,110 @@ GLfloat groundVertices[][3] = {
     {5.0, 0.0, 0.0}    // Vertex 4
 };
 
-void drawHalfSphere(float radius, int slices, int stacks) {
-    // Set the color to white
-    glColor3f(1.0, 1.0, 1.0);
-    
-    // Iterate over the stacks
-    for (int i = 0; i < stacks; i++) {
-        float phi1 = M_PI * i / stacks;
-        float phi2 = M_PI * (i + 1) / stacks;
+GLfloat islandTop[][3]={
+    {0.0 ,-1.0, 0.0},
+    {-0.56, -0.55, 0.0},
+    {-0.3, 0.0, 0.0},
+    {0.3, 0.0, 0.0},
+    {0.56, -0.55, 0.0}
+};
 
-        // Iterate over the slices
-        for (int j = 0; j < slices; j++) {
-            float theta1 = 2.0 * M_PI * j / slices;
-            float theta2 = 2.0 * M_PI * (j + 1) / slices;
+GLfloat islandBottom[][3]={
+    {0.0, -1.0, 0.5},
+    {-0.56, -0.55, 0.5},
+    {-0.3, 0.0, 0.5},
+    {0.3, 0.0, 0.5},
+    {0.56, -0.55, 0.5}
+};
 
-            // Calculate the vertices of the quad
-            float x1 = radius * sin(phi1) * cos(theta1);
-            float y1 = radius * sin(phi1) * sin(theta1);
-            float z1 = radius * cos(phi1);
+GLfloat islandSideOne[][3]={
+    {0.0 ,-1.0, 0.0},
+    {-0.56, -0.55, 0.0},
+    {-0.56, -0.55, 0.5},
+    {0.0, -1.0, 0.5}
+};
 
-            float x2 = radius * sin(phi1) * cos(theta2);
-            float y2 = radius * sin(phi1) * sin(theta2);
-            float z2 = radius * cos(phi1);
+GLfloat islandSideTwo[][3]={
+    {-0.56, -0.55, 0.0},
+    {-0.3, 0.0, 0.0},
+    {-0.3, 0.0, 0.5},
+    {-0.56, -0.55, 0.5}
+};
+GLfloat islandSideThree[][3]={
+    {-0.3, 0.0, 0.0},
+    {0.3, 0.0, 0.0},
+    {0.3, 0.0, 0.5},
+    {-0.3, 0.0, 0.5}
+};
+GLfloat islandSideFour[][3]={
+    {0.3, 0.0, 0.0},
+    {0.56, -0.55, 0.0},
+    {0.56, -0.55, 0.5},
+    {0.3, 0.0, 0.5}
+};
 
-            float x3 = radius * sin(phi2) * cos(theta2);
-            float y3 = radius * sin(phi2) * sin(theta2);
-            float z3 = radius * cos(phi2);
+GLfloat islandSideFive[][3] = {
+    {0.56, -0.55, 0.0},
+    {0.0 ,-1.0, 0.0},
+    {-0.3, 0.0, 0.0},
+    {0.56, -0.55, 0.5}
+};
 
-            float x4 = radius * sin(phi2) * cos(theta1);
-            float y4 = radius * sin(phi2) * sin(theta1);
-            float z4 = radius * cos(phi2);
+void drawGround(){
+    //Ground Plane
+    glColor3f(0.0, 0.8, 1.0);
+    // Draw the rectangle
+    glBegin(GL_QUADS);
+        glVertex3fv(groundVertices[0]);
+        glVertex3fv(groundVertices[1]);
+        glVertex3fv(groundVertices[2]);
+        glVertex3fv(groundVertices[3]);
+    glEnd();
+}
 
-            // Draw the quad using GL_TRIANGLE_FAN
-            glBegin(GL_TRIANGLE_FAN);
-            glVertex3f(x1, y1, z1);
-            glVertex3f(x2, y2, z2);
-            glVertex3f(x3, y3, z3);
-            glVertex3f(x4, y4, z4);
-            glEnd();
+void drawIsland(){
+
+    glColor3f(194/255.0, 178/255.0, 128/255.0);
+    glBegin(GL_POLYGON); // start defining a polygon
+        for(int i = 0; i < 5; i++) {
+            glVertex3fv(islandTop[i]); // add each vertex to the polygon
         }
-    }
+    glEnd(); // end defining the polygon
+    glBegin(GL_POLYGON); // start defining a polygon
+        for(int i = 0; i < 5; i++) {
+            glVertex3fv(islandBottom[i]); // add each vertex to the polygon
+        }
+    glEnd(); // end defining the polygon
+    glBegin(GL_QUADS);
+        glVertex3fv(islandSideOne[0]);
+        glVertex3fv(islandSideOne[1]);
+        glVertex3fv(islandSideOne[2]);
+        glVertex3fv(islandSideOne[3]);
+    glEnd();
+    glBegin(GL_QUADS);
+        glVertex3fv(islandSideTwo[0]);
+        glVertex3fv(islandSideTwo[1]);
+        glVertex3fv(islandSideTwo[2]);
+        glVertex3fv(islandSideTwo[3]);
+    glEnd();
+    glBegin(GL_QUADS);
+        glVertex3fv(islandSideThree[0]);
+        glVertex3fv(islandSideThree[1]);
+        glVertex3fv(islandSideThree[2]);
+        glVertex3fv(islandSideThree[3]);
+    glEnd();
+    glBegin(GL_QUADS);
+        glVertex3fv(islandSideFour[0]);
+        glVertex3fv(islandSideFour[1]);
+        glVertex3fv(islandSideFour[2]);
+        glVertex3fv(islandSideFour[3]);
+    glEnd();
+    glBegin(GL_QUADS);
+        glVertex3fv(islandSideFive[0]);
+        glVertex3fv(islandSideFive[1]);
+        glVertex3fv(islandSideFive[2]);
+        glVertex3fv(islandSideFive[3]);
+    glEnd();
 }
 
 void display(void)
@@ -76,20 +136,14 @@ void display(void)
     gluLookAt (cameraX, cameraY, cameraZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
     glPushMatrix();
-    //Ground Plane
-    glColor3f(0.0, 0.8, 1.0);
-    // Draw the rectangle
-    glBegin(GL_QUADS);
-        glVertex3fv(groundVertices[0]);
-        glVertex3fv(groundVertices[1]);
-        glVertex3fv(groundVertices[2]);
-        glVertex3fv(groundVertices[3]);
-    glEnd();
+        drawGround();
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(0.0, -2.0, 0.0);
-    drawHalfSphere(2.0, 20, 10);
+    glColor3f(1.0, 0.0, 0.0);
+    glTranslatef(0.0f, 0.5f, 0.0f);
+    glRotatef( 90.0, 1.0, 0.0, 0.0);
+    drawIsland();
     glPopMatrix();
 
 
