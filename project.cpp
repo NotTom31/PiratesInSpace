@@ -13,6 +13,7 @@ void init(void)
 
     glEnableClientState (GL_VERTEX_ARRAY);
     glEnableClientState (GL_COLOR_ARRAY);
+    glEnable(GL_DEPTH_TEST);
 }
 
 GLfloat groundVertices[][3] = {
@@ -259,7 +260,7 @@ void drawPyramid()
 
 void display(void)
 {
-    glClear (GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity ();             /* clear the matrix */
     /* viewing transformation  */
     gluLookAt (cameraX, cameraY, cameraZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
@@ -339,7 +340,7 @@ int main(int argc, char** argv)
 {
    glutInit(&argc, argv);
    glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
-   glutInitWindowSize (500, 500); 
+   glutInitWindowSize (800, 800); 
    glutInitWindowPosition (100, 100);
    glutCreateWindow (argv[0]);
    init ();
