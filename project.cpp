@@ -70,6 +70,48 @@ GLfloat islandSideFive[][3] = {
     {-0.3, 0.0, 0.0},
     {0.56, -0.55, 0.5}
 };
+//for tree
+GLfloat treeTop[][3]={
+    {0.0, 3.0, 0.0},
+    {0.0, 3.0, 0.5},
+    {0.5, 3.0, 0.5},
+    {0.5, 3.0, 0.0}
+};
+
+GLfloat treeBottom[][3]={
+    {0.0,0.0,0.0},
+    {0.0,0.0,0.5},
+    {0.5,0.0,0.5},
+    {0.5,0.0,0.0}
+};
+
+GLfloat treeSideOne[][3]{
+    {0.0, 3.0, 0.0},
+    {0.0, 3.0, 0.5},
+    {0.0, 0.0, 0.5},
+    {0.0, 0.0, 0.0}
+};
+
+GLfloat treeSideTwo[][3]{
+    {0.0, 3.0, 0.5},
+    {0.5, 3.0, 0.5},
+    {0.5, 0.0, 0.5},
+    {0.0, 0.0, 0.5}
+};
+
+GLfloat treeSideThree[][4]{
+    {0.5, 3.0, 0.5},
+    {0.5, 3.0, 0.0},
+    {0.5, 0.0, 0.0},
+    {0.5, 0.0, 0.5}
+};
+
+GLfloat treeSideFour[][5]{
+    {0.5, 3.0, 0.0},
+    {0.0, 3.0, 0.0},
+    {0.0, 0.0, 0.0},
+    {0.5, 0.0, 0.0}
+};
 
 void drawGround(){
     //Ground Plane
@@ -127,6 +169,45 @@ void drawIsland(){
         glVertex3fv(islandSideFive[3]);
     glEnd();
 }
+void drawTree(){
+    glColor3f(0.71f, 0.53f, 0.39f); // light brown color
+    glBegin(GL_QUADS);
+    glVertex3fv(treeTop[0]);
+    glVertex3fv(treeTop[1]);
+    glVertex3fv(treeTop[2]);
+    glVertex3fv(treeTop[3]);
+    glEnd();
+    glBegin(GL_QUADS);
+    glVertex3fv(treeBottom[0]);
+    glVertex3fv(treeBottom[1]);
+    glVertex3fv(treeBottom[2]);
+    glVertex3fv(treeBottom[3]);
+    glEnd();
+    glBegin(GL_QUADS);
+    glVertex3fv(treeSideOne[0]);
+    glVertex3fv(treeSideOne[1]);
+    glVertex3fv(treeSideOne[2]);
+    glVertex3fv(treeSideOne[3]);
+    glEnd();
+    glBegin(GL_QUADS);
+    glVertex3fv(treeSideTwo[0]);
+    glVertex3fv(treeSideTwo[1]);
+    glVertex3fv(treeSideTwo[2]);
+    glVertex3fv(treeSideTwo[3]);
+    glEnd();
+    glBegin(GL_QUADS);
+    glVertex3fv(treeSideThree[0]);
+    glVertex3fv(treeSideThree[1]);
+    glVertex3fv(treeSideThree[2]);
+    glVertex3fv(treeSideThree[3]);
+    glEnd();
+    glBegin(GL_QUADS);
+    glVertex3fv(treeSideFour[0]);
+    glVertex3fv(treeSideFour[1]);
+    glVertex3fv(treeSideFour[2]);
+    glVertex3fv(treeSideFour[3]);
+    glEnd();
+}
 
 void display(void)
 {
@@ -144,6 +225,10 @@ void display(void)
     glTranslatef(0.0f, 0.5f, 0.0f);
     glRotatef( 90.0, 1.0, 0.0, 0.0);
     drawIsland();
+    glPopMatrix();
+
+    glPushMatrix();
+    drawTree();
     glPopMatrix();
 
 
