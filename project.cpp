@@ -3,8 +3,8 @@
 #include <cmath>
 
 float cameraX = 0.0f;
-float cameraY = 3.0f;
-float cameraZ = 8.0f;
+float cameraY = 6.0f;
+float cameraZ = 12.0f;
 
 void init(void) 
 {
@@ -16,59 +16,59 @@ void init(void)
 }
 
 GLfloat groundVertices[][3] = {
-    {0.0, 0.0, -5.0},   // Vertex 1
-    {-5.0, 0.0, 0.0},   // Vertex 2
-    {0.0, 0.0, 5.0},   // Vertex 3
-    {5.0, 0.0, 0.0}    // Vertex 4
+    {0.0, 0.0, -15.0},   // Vertex 1
+    {-15.0, 0.0, 0.0},   // Vertex 2
+    {0.0, 0.0, 15.0},   // Vertex 3
+    {15.0, 0.0, 0.0}    // Vertex 4
 };
 
 GLfloat islandTop[][3]={
-    {0.0 ,-1.0, 0.0},
-    {-0.56, -0.55, 0.0},
-    {-0.3, 0.0, 0.0},
-    {0.3, 0.0, 0.0},
-    {0.56, -0.55, 0.0}
+    {0.0 ,-3.0, 0.0},
+    {-1.68, -1.65, 0.0},
+    {-0.9, 0.0, 0.0},
+    {0.9, 0.0, 0.0},
+    {1.68, -1.65, 0.0}
 };
 
 GLfloat islandBottom[][3]={
-    {0.0, -1.0, 0.5},
-    {-0.56, -0.55, 0.5},
-    {-0.3, 0.0, 0.5},
-    {0.3, 0.0, 0.5},
-    {0.56, -0.55, 0.5}
+    {0.0, -3.0, 0.5},
+    {-1.68, -1.65, 0.5},
+    {-0.9, 0.0, 0.5},
+    {0.9, 0.0, 0.5},
+    {1.68, -1.65, 0.5}
 };
 
 GLfloat islandSideOne[][3]={
-    {0.0 ,-1.0, 0.0},
-    {-0.56, -0.55, 0.0},
-    {-0.56, -0.55, 0.5},
-    {0.0, -1.0, 0.5}
+    {0.0 ,-3.0, 0.0},
+    {-1.68, -1.65, 0.0},
+    {-1.68, -1.65, 0.5},
+    {0.0, -3.0, 0.5}
 };
 
 GLfloat islandSideTwo[][3]={
-    {-0.56, -0.55, 0.0},
-    {-0.3, 0.0, 0.0},
-    {-0.3, 0.0, 0.5},
-    {-0.56, -0.55, 0.5}
+    {-1.68, -1.65, 0.0},
+    {-0.9, 0.0, 0.0},
+    {-0.9, 0.0, 0.5},
+    {-1.68, -1.65, 0.5}
 };
 GLfloat islandSideThree[][3]={
-    {-0.3, 0.0, 0.0},
-    {0.3, 0.0, 0.0},
-    {0.3, 0.0, 0.5},
-    {-0.3, 0.0, 0.5}
+    {-0.9, 0.0, 0.0},
+    {0.9, 0.0, 0.0},
+    {0.9, 0.0, 0.5},
+    {-0.9, 0.0, 0.5}
 };
 GLfloat islandSideFour[][3]={
-    {0.3, 0.0, 0.0},
-    {0.56, -0.55, 0.0},
-    {0.56, -0.55, 0.5},
-    {0.3, 0.0, 0.5}
+    {0.9, 0.0, 0.0},
+    {1.68, -1.65, 0.0},
+    {1.68, -1.65, 0.5},
+    {0.9, 0.0, 0.5}
 };
 
 GLfloat islandSideFive[][3] = {
-    {0.56, -0.55, 0.0},
-    {0.0 ,-1.0, 0.0},
-    {-0.3, 0.0, 0.0},
-    {0.56, -0.55, 0.5}
+    {1.68, -1.65, 0.0},
+    {0.0 ,-3.0, 0.0},
+    {-0.9, 0.0, 0.0},
+    {1.68, -1.65, 0.5}
 };
 //for tree
 GLfloat treeTop[][3]={
@@ -209,6 +209,54 @@ void drawTree(){
     glEnd();
 }
 
+void drawPyramid()
+{
+    // Define the vertices of the pyramid
+    GLfloat vertices[][3] = {
+        {0.0, 1.0, 0.0},    // Vertex 0 (top)
+        {-1.0, -1.0, 1.0},  // Vertex 1 (front left)
+        {1.0, -1.0, 1.0},   // Vertex 2 (front right)
+        {1.0, -1.0, -1.0},  // Vertex 3 (back right)
+        {-1.0, -1.0, -1.0}  // Vertex 4 (back left)
+    };
+
+    // Set the color of the pyramid
+    glColor3f(0.0, 1.0, 0.0);
+
+    // Draw the pyramid
+    glBegin(GL_TRIANGLES);
+
+    // Front face
+    glVertex3fv(vertices[0]);
+    glVertex3fv(vertices[1]);
+    glVertex3fv(vertices[2]);
+
+    // Right face
+    glVertex3fv(vertices[0]);
+    glVertex3fv(vertices[2]);
+    glVertex3fv(vertices[3]);
+
+    // Back face
+    glVertex3fv(vertices[0]);
+    glVertex3fv(vertices[3]);
+    glVertex3fv(vertices[4]);
+
+    // Left face
+    glVertex3fv(vertices[0]);
+    glVertex3fv(vertices[4]);
+    glVertex3fv(vertices[1]);
+
+    // Bottom face
+    glVertex3fv(vertices[4]);
+    glVertex3fv(vertices[3]);
+    glVertex3fv(vertices[2]);
+    glVertex3fv(vertices[2]);
+    glVertex3fv(vertices[1]);
+    glVertex3fv(vertices[4]);
+
+    glEnd();
+}
+
 void display(void)
 {
     glClear (GL_COLOR_BUFFER_BIT);
@@ -222,13 +270,19 @@ void display(void)
 
     glPushMatrix();
     glColor3f(1.0, 0.0, 0.0);
-    glTranslatef(0.0f, 0.5f, 0.0f);
-    glRotatef( 90.0, 1.0, 0.0, 0.0);
+    glTranslatef(-5.0f, 0.5f, 0.0f);
+    glRotatef(90.0, 1.0, 0.0, 0.0);
     drawIsland();
     glPopMatrix();
 
     glPushMatrix();
+    glTranslatef(-5.0f, 0.5f, -1.0f);
     drawTree();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-4.8f, 3.0f, -1.0f);
+    drawPyramid();
     glPopMatrix();
 
 
