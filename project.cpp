@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 #include <stdlib.h>
 #include <cmath>
+#include<stdio.h>
 
 float cameraX = 0.0f;
 float cameraY = 6.0f;
