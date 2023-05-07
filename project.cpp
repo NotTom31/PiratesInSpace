@@ -8,6 +8,7 @@ float cameraY = 6.0f;
 float cameraZ = 12.0f;
 
 GLuint ship;
+char ch='1';
 
 void loadObj(char *fname)
 {
