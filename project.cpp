@@ -291,13 +291,13 @@ void display(void)
 }
 
 
-void reshape (int w, int h)
+void reshape(int w, int h)
 {
-   glViewport (0, 0, (GLsizei) w, (GLsizei) h); 
-   glMatrixMode (GL_PROJECTION);
-   glLoadIdentity ();
-   glFrustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
-   glMatrixMode (GL_MODELVIEW);
+    glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(60, (GLfloat)w / (GLfloat)h, 0.1, 1000.0);
+    glMatrixMode(GL_MODELVIEW);
 }
 
 void keyboard(unsigned char key, int x, int y) {
