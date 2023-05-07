@@ -1,0 +1,152 @@
+# Blender 3.5.1 MTL File: 'None'
+# www.blender.org
+
+newmtl Material
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl cable
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert14_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert14_Specular.png
+
+newmtl korpus
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert2_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert2_Specular.png
+
+newmtl korpus.1
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert6_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert6_Specular.png
+
+newmtl korpus.2
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert4_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert4_Specular.png
+
+newmtl korpus.3
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert12_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert12_Specular.png
+
+newmtl korpus.4
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert13_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert13_Specular.png
+
+newmtl korpus.5
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert15_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert15_Specular.png
+
+newmtl korpus.6
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert7_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert7_Specular.png
+
+newmtl korpus.7
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert3_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert3_Specular.png
+
+newmtl korpus.8
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert16_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert16_Specular.png
+
+newmtl sails
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert11_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert11_Specular.png
+
+newmtl wheel
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert8_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert8_Specular.png
+
+newmtl window
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert10_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert10_Specular.png
+
+newmtl window2
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/Tom/Desktop/New folder/ship_lambert9_Diffuse.png
+map_Ks C:/Users/Tom/Desktop/New folder/ship_lambert9_Specular.png

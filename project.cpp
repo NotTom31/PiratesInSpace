@@ -6,6 +6,43 @@ float cameraX = 0.0f;
 float cameraY = 6.0f;
 float cameraZ = 12.0f;
 
+GLuint ship;
+
+void loadObj(char *fname)
+{
+FILE *fp;
+int read;
+GLfloat x, y, z;
+char ch;
+ship=glGenLists(1);
+fp=fopen(fname,"r");
+if (!fp) 
+    {
+        printf("can't open file %s\n", fname);
+	  exit(1);
+    }
+glPointSize(2.0);
+glNewList(ship, GL_COMPILE);
+{
+glPushMatrix();
+glBegin(GL_POINTS);
+while(!(feof(fp)))
+ {
+  read=fscanf(fp,"%c %f %f %f",&ch,&x,&y,&z);
+  if(read==4&&ch=='v')
+  {
+   glVertex3f(x,y,z);
+  }
+ }
+glEnd();
+}
+glPopMatrix();
+glEndList();
+fclose(fp);
+}
+
+//.obj loader code ends here
+
 void init(void) 
 {
     glClearColor (0.0, 0.0, 0.0, 0.0);
@@ -258,6 +295,15 @@ void drawPyramid()
     glEnd();
 }
 
+void drawBoat()
+{
+    glPushMatrix();
+ 	glTranslatef(0,-40.00,-105);
+    glScalef(0.1,0.1,0.1);
+    glCallList(ship);
+ 	glPopMatrix();
+}
+
 void display(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -286,6 +332,7 @@ void display(void)
     drawPyramid();
     glPopMatrix();
 
+    drawBoat();
 
     glFlush();
 }
@@ -296,7 +343,7 @@ void reshape (int w, int h)
    glViewport (0, 0, (GLsizei) w, (GLsizei) h); 
    glMatrixMode (GL_PROJECTION);
    glLoadIdentity ();
-   glFrustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
+   gluPerspective (60, (GLfloat)w / (GLfloat)h, 0.1, 1000.0);
    glMatrixMode (GL_MODELVIEW);
 }
 
@@ -345,6 +392,7 @@ int main(int argc, char** argv)
    glutCreateWindow (argv[0]);
    init ();
    glutDisplayFunc(display); 
+   loadObj("Ship/Ship.obj");
    glutReshapeFunc(reshape);
    glutKeyboardFunc(keyboard);
    glutMainLoop();
