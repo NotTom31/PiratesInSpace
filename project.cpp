@@ -21,7 +21,7 @@ const char* MODEL_PATH = "Ship.obj";
 
 float cameraX = 0.0f;
 float cameraY = 6.0f;
-float cameraZ = 12.0f;
+float cameraZ = 16.0f;
 
 GLuint ship;
 char ch='1';
@@ -329,23 +329,114 @@ void display(void)
     gluLookAt (cameraX, cameraY, cameraZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
     glPushMatrix();
+    glScalef(2.0, 0.0, 2.0);
         drawGround();
     glPopMatrix();
 
     glPushMatrix();
     glColor3f(1.0, 0.0, 0.0);
-    glTranslatef(-5.0f, 0.5f, 0.0f);
+    glTranslatef(-10.0f, 0.5f, 0.0f);
     glRotatef(90.0, 1.0, 0.0, 0.0);
+    glScalef(3.0, 3.0, 3.0);
     drawIsland();
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(-5.0f, 0.5f, -1.0f);
+    glColor3f(1.0, 0.0, 0.0);
+    glTranslatef(10.0f, 0.5f, 4.0f);
+    glRotatef(90.0, 1.0, 0.0, 0.0);
+    glScalef(1.5, 1.5, 1.5);
+    drawIsland();
+    glPopMatrix();
+
+    glPushMatrix();
+    glColor3f(1.0, 0.0, 0.0);
+    glTranslatef(7.0f, 0.5f, -10.0f);
+    glRotatef(90.0, 1.0, 0.0, 0.0);
+    glScalef(0.7, 0.7, 0.7);
+    drawIsland();
+    glPopMatrix();
+
+    glPushMatrix();
+    glColor3f(1.0, 0.0, 0.0);
+    glTranslatef(-7.0f, 0.5f, 10.0f);
+    glRotatef(90.0, 1.0, 0.0, 0.0);
+    glScalef(0.7, 0.7, 0.7);
+    drawIsland();
+    glPopMatrix();
+
+
+//right island trees
+    glPushMatrix();
+    glTranslatef(10.0f, 0.5f, 4.0f);
+    glScalef(0.5, 0.5, 0.5);
     drawTree();
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(-4.8f, 4.0f, -1.0f);
+    glTranslatef(10.0f, 0.5f, 2.0f);
+    glScalef(0.5, 0.5, 0.5);
+    drawTree();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(10.2f, 2.0f, 4.0f);
+    glScalef(0.5,0.5,0.5);
+    drawPyramid();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(10.2f, 2.0f, 2.0f);
+    glScalef(0.5,0.5,0.5);
+    drawPyramid();
+    glPopMatrix();
+
+//left island trees
+    glPushMatrix();
+    glTranslatef(-10.0f, 0.5f, -1.0f);
+    glScalef(0.5, 0.5, 0.5);
+    drawTree();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-11.0f, 0.5f, -1.5f);
+    glScalef(0.5,0.5,0.5);
+    drawTree();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-10.0f, 0.5f, -2.0f);
+    glScalef(0.5, 0.5, 0.5);
+    drawTree();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-10.0f, 0.5f, -3.0f);
+    glScalef(0.5, 0.5, 0.5);
+    drawTree();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-9.8f, 2.0f, -1.0f);
+    glScalef(0.5,0.5,0.5);
+    drawPyramid();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-10.8f, 2.0f, -1.5f);
+    glScalef(0.5,0.5,0.5);
+    drawPyramid();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-9.8f, 2.0f, -2.0f);
+    glScalef(0.5,0.5,0.5);
+    drawPyramid();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-9.8f, 2.0f, -3.0f);
+    glScalef(0.5,0.5,0.5);
     drawPyramid();
     glPopMatrix();
 
@@ -405,30 +496,30 @@ void keyboard(unsigned char key, int x, int y) {
             break;
         case 'x':
             // Move left (decrease x position)
-            cameraX -= 0.1f;
+            cameraX -= 0.5f;
             glutPostRedisplay();
             break;
         case 'X':
             // Move right (increase x position)
-            cameraX += 0.1f;
+            cameraX += 0.5f;
             glutPostRedisplay();
             break;
         case 'z':
             // Move forward (decrease z position)
-            cameraZ -= 0.1f;
+            cameraZ -= 0.5f;
             glutPostRedisplay();
             break;
         case 'Z':
             // Move backward (increase z position)
-            cameraZ += 0.1f;
+            cameraZ += 0.5f;
             glutPostRedisplay();
             break;
         case 'y':
-            cameraY -= 0.1f;
+            cameraY -= 0.5f;
             glutPostRedisplay();
             break;
         case 'Y':
-            cameraY += 0.1f;
+            cameraY += 0.5f;
             glutPostRedisplay();
             break;
     }
