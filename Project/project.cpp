@@ -7,38 +7,32 @@
 #include <AL/alc.h>
 #include <vector>
 #include <string>
-#include <stdio.h>
-#include<fstream>
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include <SOIL/SOIL.h>
 
 ALCdevice* device;
 ALCcontext* context;
 ALuint buffer, source;
+#include <stdio.h>
+
+#include<fstream>
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 const char* MODEL_PATH = "Ship.obj";
 
 float cameraX = 0.0f;
 float cameraY = 6.0f;
-float cameraZ = 16.0f;
+float cameraZ = 12.0f;
 
 GLuint ship;
 char ch='1';
 
 void init(void) 
 {
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-
     glClearColor (0.0, 0.0, 0.0, 0.0);
     glShadeModel (GL_SMOOTH);
-
-    GLfloat white[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-    GLfloat light0_pos[] = { 1.0f, 1.0f, 1.0f, 0.0f };
-    glLightfv(GL_LIGHT0, GL_POSITION, light0_pos);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
 
     glEnableClientState (GL_VERTEX_ARRAY);
     glEnableClientState (GL_COLOR_ARRAY);
@@ -75,9 +69,8 @@ void init(void)
 
     // Play sound
     alSourcePlay(source);
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+
     delete[] data;
-    
 }
 
 GLfloat groundVertices[][3] = {
@@ -180,8 +173,7 @@ GLfloat treeSideFour[][5]{
 
 void drawGround(){
     //Ground Plane
-    GLfloat ground[] = { 0.0, 0.8, 1.0 };
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, ground);
+    glColor3f(0.0, 0.8, 1.0);
     // Draw the rectangle
     glBegin(GL_QUADS);
         glVertex3fv(groundVertices[0]);
@@ -193,9 +185,7 @@ void drawGround(){
 
 void drawIsland(){
 
-    
-    GLfloat island[] = { 194.0 , 178.0 , 128.0 };
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, island);
+    glColor3f(194/255.0, 178/255.0, 128/255.0);
     glBegin(GL_POLYGON); // start defining a polygon
         for(int i = 0; i < 5; i++) {
             glVertex3fv(islandTop[i]); // add each vertex to the polygon
@@ -238,8 +228,7 @@ void drawIsland(){
     glEnd();
 }
 void drawTree(){
-    GLfloat brown[] = { 0.71f, 0.53f, 0.39f }; // light brown color
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, brown);
+    glColor3f(0.71f, 0.53f, 0.39f); // light brown color
     glBegin(GL_QUADS);
     glVertex3fv(treeTop[0]);
     glVertex3fv(treeTop[1]);
@@ -290,8 +279,7 @@ void drawPyramid()
     };
 
     // Set the color of the pyramid
-    GLfloat green[] = { 0.0, 1.0, 0.0 }; // light brown color
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, green);
+    glColor3f(0.0, 1.0, 0.0);
 
     // Draw the pyramid
     glBegin(GL_TRIANGLES);
@@ -343,118 +331,24 @@ void display(void)
     /* viewing transformation  */
     gluLookAt (cameraX, cameraY, cameraZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-    glPushAttrib(GL_LIGHTING_BIT); //save material and lighting
-    glEnable(GL_LIGHT1);
-
     glPushMatrix();
-    glScalef(2.0, 0.0, 2.0);
         drawGround();
     glPopMatrix();
 
     glPushMatrix();
     glColor3f(1.0, 0.0, 0.0);
-    glTranslatef(-10.0f, 0.5f, 0.0f);
+    glTranslatef(-5.0f, 0.5f, 0.0f);
     glRotatef(90.0, 1.0, 0.0, 0.0);
-    glScalef(3.0, 3.0, 3.0);
     drawIsland();
     glPopMatrix();
 
     glPushMatrix();
-    glColor3f(1.0, 0.0, 0.0);
-    glTranslatef(10.0f, 0.5f, 4.0f);
-    glRotatef(90.0, 1.0, 0.0, 0.0);
-    glScalef(1.5, 1.5, 1.5);
-    drawIsland();
-    glPopMatrix();
-
-    glPushMatrix();
-    glColor3f(1.0, 0.0, 0.0);
-    glTranslatef(7.0f, 0.5f, -10.0f);
-    glRotatef(90.0, 1.0, 0.0, 0.0);
-    glScalef(0.7, 0.7, 0.7);
-    drawIsland();
-    glPopMatrix();
-
-    glPushMatrix();
-    glColor3f(1.0, 0.0, 0.0);
-    glTranslatef(-7.0f, 0.5f, 10.0f);
-    glRotatef(90.0, 1.0, 0.0, 0.0);
-    glScalef(0.7, 0.7, 0.7);
-    drawIsland();
-    glPopMatrix();
-
-
-//right island trees
-    glPushMatrix();
-    glTranslatef(10.0f, 0.5f, 4.0f);
-    glScalef(0.5, 0.5, 0.5);
+    glTranslatef(-5.0f, 0.5f, -1.0f);
     drawTree();
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(10.0f, 0.5f, 2.0f);
-    glScalef(0.5, 0.5, 0.5);
-    drawTree();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(10.2f, 2.0f, 4.0f);
-    glScalef(0.5,0.5,0.5);
-    drawPyramid();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(10.2f, 2.0f, 2.0f);
-    glScalef(0.5,0.5,0.5);
-    drawPyramid();
-    glPopMatrix();
-
-//left island trees
-    glPushMatrix();
-    glTranslatef(-10.0f, 0.5f, -1.0f);
-    glScalef(0.5, 0.5, 0.5);
-    drawTree();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(-11.0f, 0.5f, -1.5f);
-    glScalef(0.5,0.5,0.5);
-    drawTree();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(-10.0f, 0.5f, -2.0f);
-    glScalef(0.5, 0.5, 0.5);
-    drawTree();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(-10.0f, 0.5f, -3.0f);
-    glScalef(0.5, 0.5, 0.5);
-    drawTree();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(-9.8f, 2.0f, -1.0f);
-    glScalef(0.5,0.5,0.5);
-    drawPyramid();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(-10.8f, 2.0f, -1.5f);
-    glScalef(0.5,0.5,0.5);
-    drawPyramid();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(-9.8f, 2.0f, -2.0f);
-    glScalef(0.5,0.5,0.5);
-    drawPyramid();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(-9.8f, 2.0f, -3.0f);
-    glScalef(0.5,0.5,0.5);
+    glTranslatef(-4.8f, 4.0f, -1.0f);
     drawPyramid();
     glPopMatrix();
 
@@ -471,9 +365,25 @@ void display(void)
         exit(EXIT_FAILURE);
     }
 
+    // Load the materials and textures
+    std::vector<std::string> texturePaths;
+    for (unsigned int i = 0; i < scene->mNumMaterials; i++) {
+        aiMaterial* material = scene->mMaterials[i];
+        aiString texturePath;
+        if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath) == AI_SUCCESS) {
+            texturePaths.push_back(texturePath.C_Str());
+        }
+    }
+    std::vector<GLuint> textureIds(texturePaths.size());
+    for (size_t i = 0; i < texturePaths.size(); i++) {
+        textureIds[i] = SOIL_load_OGL_texture(texturePaths[i].c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+    }
+
     // Render the meshes
     for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
         aiMesh* mesh = scene->mMeshes[i];
+
+        glBindTexture(GL_TEXTURE_2D, textureIds[mesh->mMaterialIndex]);
 
         glBegin(GL_TRIANGLES);
         for (unsigned int j = 0; j < mesh->mNumFaces; j++) {
@@ -514,30 +424,30 @@ void keyboard(unsigned char key, int x, int y) {
             break;
         case 'x':
             // Move left (decrease x position)
-            cameraX -= 0.5f;
+            cameraX -= 0.1f;
             glutPostRedisplay();
             break;
         case 'X':
             // Move right (increase x position)
-            cameraX += 0.5f;
+            cameraX += 0.1f;
             glutPostRedisplay();
             break;
         case 'z':
             // Move forward (decrease z position)
-            cameraZ -= 0.5f;
+            cameraZ -= 0.1f;
             glutPostRedisplay();
             break;
         case 'Z':
             // Move backward (increase z position)
-            cameraZ += 0.5f;
+            cameraZ += 0.1f;
             glutPostRedisplay();
             break;
         case 'y':
-            cameraY -= 0.5f;
+            cameraY -= 0.1f;
             glutPostRedisplay();
             break;
         case 'Y':
-            cameraY += 0.5f;
+            cameraY += 0.1f;
             glutPostRedisplay();
             break;
     }
@@ -546,7 +456,7 @@ void keyboard(unsigned char key, int x, int y) {
 int main(int argc, char** argv)
 {
    glutInit(&argc, argv);
-   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH); // set display mode
+   glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
    glutInitWindowSize (800, 800); 
    glutInitWindowPosition (100, 100);
    glutCreateWindow (argv[0]);
