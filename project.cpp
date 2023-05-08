@@ -56,7 +56,7 @@ void init(void)
 
     // Create buffer and fill with sound data
     alGenBuffers(1, &buffer);
-    alBufferData(buffer, AL_FORMAT_MONO16, data, size, 44100);
+    alBufferData(buffer, AL_FORMAT_MONO16, data, size, 88200);
 
     // Create source and attach buffer
     alGenSources(1, &source);
