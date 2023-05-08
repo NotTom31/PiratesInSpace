@@ -65,7 +65,7 @@ void init(void)
 
     // Create buffer and fill with sound data
     alGenBuffers(1, &buffer);
-    alBufferData(buffer, AL_FORMAT_MONO16, data, size, 44100);
+    alBufferData(buffer, AL_FORMAT_MONO16, data, size, 88200);
 
     // Create source and attach buffer
     alGenSources(1, &source);
@@ -347,7 +347,7 @@ void display(void)
     glEnable(GL_LIGHT1);
 
     glPushMatrix();
-    glScalef(2.0, 0.0, 2.0);
+    glScalef(1.5, 0.0, 1.5);
         drawGround();
     glPopMatrix();
 
