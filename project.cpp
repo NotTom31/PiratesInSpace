@@ -28,6 +28,8 @@ int color = 0;
 GLuint ship;
 char ch='1';
 
+bool drawBool = true;
+
 void init(void) 
 {
     glClearColor (0.0, 0.0, 0.0, 0.0);
@@ -367,7 +369,7 @@ void display(void)
     drawIsland();
     glPopMatrix();
 
-
+if (!drawBool == false){
 //right island trees
     glPushMatrix();
     glTranslatef(10.0f, 0.5f, 4.0f);
@@ -441,7 +443,7 @@ void display(void)
     glScalef(0.5,0.5,0.5);
     drawPyramid();
     glPopMatrix();
-
+}
 
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(MODEL_PATH, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -565,6 +567,14 @@ void keyboard(unsigned char key, int x, int y) {
             break;
         case 'C':
             color -= 1;
+            glutPostRedisplay();
+            break;
+        case 't':
+            drawBool = false;
+            glutPostRedisplay();
+            break;
+        case 'T':
+            drawBool = true;
             glutPostRedisplay();
             break;
     }
