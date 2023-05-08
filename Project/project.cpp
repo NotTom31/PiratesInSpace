@@ -7,9 +7,7 @@
 #include <AL/alc.h>
 #include <vector>
 #include <string>
-#include <SOIL2/include/SOIL2.h>
-#include <SOIL2.h>
-
+#include <SOIL/SOIL.h>
 
 ALCdevice* device;
 ALCcontext* context;
