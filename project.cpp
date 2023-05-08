@@ -22,6 +22,8 @@ const char* MODEL_PATH = "Ship.obj";
 float cameraX = 0.0f;
 float cameraY = 6.0f;
 float cameraZ = 16.0f;
+float angle = 0;
+int color = 0;
 
 GLuint ship;
 char ch='1';
@@ -312,14 +314,14 @@ void drawPyramid()
     glEnd();
 }
 
-void drawBoat()
-{
-    glPushMatrix();
- 	glTranslatef(0,5,0);
-    glScalef(0.1,0.1,0.1);
-    glCallList(ship);
- 	glPopMatrix();
-}
+//void drawBoat()
+//{
+//    glPushMatrix();
+// 	glTranslatef(0,5,0);
+//    glScalef(0.1,0.1,0.1);
+//    glCallList(ship);
+// 	glPopMatrix();
+//}
 
 void display(void)
 {
@@ -445,8 +447,25 @@ void display(void)
     const aiScene* scene = importer.ReadFile(MODEL_PATH, aiProcess_Triangulate | aiProcess_FlipUVs);
 
     glScalef(0.05, 0.05, 0.05);
-    glColor3f(0.5f, 0.35f, 0.05f);
+    switch (color) {
+    case 0:
+        glColor3f(0.5f, 0.35f, 0.05f);
+        break;
+    case 1:
+        glColor3f(1.0f, 0.0f, 0.0f);
+        break;
+    case 2:
+        glColor3f(0.0f, 1.0f, 0.0f);
+        break;
+    case 3:
+        glColor3f(0.0f, 0.0f, 1.0f);
+        break;
+    default:
+        glColor3f(0.5f, 0.35f, 0.05f);
+    }
+    
     glTranslatef(0.0f, 50.0f, 0.0f);
+    glRotatef(angle, 0.0f, 1.0f, 0.0f);
 
     if (!scene) {
         std::cerr << "Failed to load model: " << importer.GetErrorString() << std::endl;
@@ -531,6 +550,22 @@ void keyboard(unsigned char key, int x, int y) {
             else if (state == AL_PAUSED) {
                 alSourcePlay(source);
             }
+            break;
+        case 'r':
+            angle += 5;
+            glutPostRedisplay();
+            break;
+        case 'R':
+            angle -= 5;
+            glutPostRedisplay();
+            break;
+        case 'c':
+            color += 1;
+            glutPostRedisplay();
+            break;
+        case 'C':
+            color -= 1;
+            glutPostRedisplay();
             break;
     }
 }
