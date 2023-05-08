@@ -329,7 +329,7 @@ void display(void)
     gluLookAt (cameraX, cameraY, cameraZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
     glPushMatrix();
-    glScalef(2.0, 0.0, 2.0);
+    glScalef(1.5, 0.0, 1.5);
         drawGround();
     glPopMatrix();
 
