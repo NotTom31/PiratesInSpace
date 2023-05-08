@@ -1,6 +1,13 @@
 #include <GL/glut.h>
 #include <stdlib.h>
 #include <cmath>
+#include <iostream>
+#include <AL/al.h>
+#include <AL/alc.h>
+
+ALCdevice* device;
+ALCcontext* context;
+ALuint buffer, source;
 
 float cameraX = 0.0f;
 float cameraY = 6.0f;
@@ -14,6 +21,40 @@ void init(void)
     glEnableClientState (GL_VERTEX_ARRAY);
     glEnableClientState (GL_COLOR_ARRAY);
     glEnable(GL_DEPTH_TEST);
+
+    device = alcOpenDevice(nullptr);
+    context = alcCreateContext(device, nullptr);
+    alcMakeContextCurrent(context);
+
+    // Load sound file
+    FILE* fp = fopen("sound.wav", "rb");
+    if (!fp) {
+        std::cerr << "Failed to open sound file\n";
+        exit(1);
+    }
+
+    // Read sound data
+    fseek(fp, 0, SEEK_END);
+    size_t size = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+    char* data = new char[size];
+    fread(data, 1, size, fp);
+    fclose(fp);
+
+    // Create buffer and fill with sound data
+    alGenBuffers(1, &buffer);
+    alBufferData(buffer, AL_FORMAT_MONO16, data, size, 44100);
+
+    // Create source and attach buffer
+    alGenSources(1, &source);
+    alSourcei(source, AL_BUFFER, buffer);
+    alSourcef(source, AL_GAIN, 1.0f);
+    alSourcef(source, AL_PITCH, 1.0f);
+
+    // Play sound
+    alSourcePlay(source);
+
+    delete[] data;
 }
 
 GLfloat groundVertices[][3] = {
@@ -282,7 +323,7 @@ void display(void)
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(-4.8f, 3.0f, -1.0f);
+    glTranslatef(-4.8f, 4.0f, -1.0f);
     drawPyramid();
     glPopMatrix();
 
@@ -348,5 +389,11 @@ int main(int argc, char** argv)
    glutReshapeFunc(reshape);
    glutKeyboardFunc(keyboard);
    glutMainLoop();
+
+   // Clean up resources
+    alDeleteSources(1, &source);
+    alDeleteBuffers(1, &buffer);
+    alcDestroyContext(context);
+    alcCloseDevice(device);
    return 0;
 }
