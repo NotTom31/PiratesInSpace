@@ -28,8 +28,17 @@ char ch='1';
 
 void init(void) 
 {
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+
     glClearColor (0.0, 0.0, 0.0, 0.0);
     glShadeModel (GL_SMOOTH);
+
+    GLfloat white[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+    GLfloat light0_pos[] = { 1.0f, 1.0f, 1.0f, 0.0f };
+    glLightfv(GL_LIGHT0, GL_POSITION, light0_pos);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
 
     glEnableClientState (GL_VERTEX_ARRAY);
     glEnableClientState (GL_COLOR_ARRAY);
@@ -66,8 +75,9 @@ void init(void)
 
     // Play sound
     alSourcePlay(source);
-
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     delete[] data;
+    
 }
 
 GLfloat groundVertices[][3] = {
@@ -170,7 +180,8 @@ GLfloat treeSideFour[][5]{
 
 void drawGround(){
     //Ground Plane
-    glColor3f(0.0, 0.8, 1.0);
+    GLfloat ground[] = { 0.0, 0.8, 1.0 };
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, ground);
     // Draw the rectangle
     glBegin(GL_QUADS);
         glVertex3fv(groundVertices[0]);
@@ -182,7 +193,9 @@ void drawGround(){
 
 void drawIsland(){
 
-    glColor3f(194/255.0, 178/255.0, 128/255.0);
+    
+    GLfloat island[] = { 194.0 , 178.0 , 128.0 };
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, island);
     glBegin(GL_POLYGON); // start defining a polygon
         for(int i = 0; i < 5; i++) {
             glVertex3fv(islandTop[i]); // add each vertex to the polygon
@@ -225,7 +238,8 @@ void drawIsland(){
     glEnd();
 }
 void drawTree(){
-    glColor3f(0.71f, 0.53f, 0.39f); // light brown color
+    GLfloat brown[] = { 0.71f, 0.53f, 0.39f }; // light brown color
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, brown);
     glBegin(GL_QUADS);
     glVertex3fv(treeTop[0]);
     glVertex3fv(treeTop[1]);
@@ -276,7 +290,8 @@ void drawPyramid()
     };
 
     // Set the color of the pyramid
-    glColor3f(0.0, 1.0, 0.0);
+    GLfloat green[] = { 0.0, 1.0, 0.0 }; // light brown color
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, green);
 
     // Draw the pyramid
     glBegin(GL_TRIANGLES);
@@ -327,6 +342,9 @@ void display(void)
     glLoadIdentity ();             /* clear the matrix */
     /* viewing transformation  */
     gluLookAt (cameraX, cameraY, cameraZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+    glPushAttrib(GL_LIGHTING_BIT); //save material and lighting
+    glEnable(GL_LIGHT1);
 
     glPushMatrix();
         drawGround();
@@ -448,7 +466,7 @@ void keyboard(unsigned char key, int x, int y) {
 int main(int argc, char** argv)
 {
    glutInit(&argc, argv);
-   glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
+   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH); // set display mode
    glutInitWindowSize (800, 800); 
    glutInitWindowPosition (100, 100);
    glutCreateWindow (argv[0]);
