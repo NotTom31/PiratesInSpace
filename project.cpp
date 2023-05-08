@@ -1,7 +1,11 @@
 #include <GL/glut.h>
 #include <stdlib.h>
+#include<GL/gl.h>
 #include <cmath>
-#include<stdio.h>
+#include <stdio.h>
+
+#include<fstream>
+#include<iostream>
 
 float cameraX = 0.0f;
 float cameraY = 6.0f;
@@ -10,7 +14,7 @@ float cameraZ = 12.0f;
 GLuint ship;
 char ch='1';
 
-void loadObj(char *fname)
+void loadObj(const char* fname)
 {
 FILE *fp;
 int read;
@@ -27,7 +31,7 @@ glPointSize(2.0);
 glNewList(ship, GL_COMPILE);
 {
 glPushMatrix();
-glBegin(GL_POINTS);
+glBegin(GL_QUADS);
 while(!(feof(fp)))
  {
   read=fscanf(fp,"%c %f %f %f",&ch,&x,&y,&z);
@@ -300,7 +304,7 @@ void drawPyramid()
 void drawBoat()
 {
     glPushMatrix();
- 	glTranslatef(0,-40.00,-105);
+ 	glTranslatef(0,5,0);
     glScalef(0.1,0.1,0.1);
     glCallList(ship);
  	glPopMatrix();
@@ -394,7 +398,8 @@ int main(int argc, char** argv)
    glutCreateWindow (argv[0]);
    init ();
    glutDisplayFunc(display); 
-   loadObj("Ship/Ship.obj");
+   //char* name = "Ship / Ship.obj";
+   loadObj("ship.obj");
    glutReshapeFunc(reshape);
    glutKeyboardFunc(keyboard);
    glutMainLoop();
