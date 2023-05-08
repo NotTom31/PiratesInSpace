@@ -32,7 +32,7 @@ void init(void)
     glEnable(GL_LIGHT0);
 
     glClearColor (0.0, 0.0, 0.0, 0.0);
-    glShadeModel (GL_SMOOTH);
+    glShadeModel(GL_FLAT);
 
     GLfloat white[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
@@ -238,8 +238,6 @@ void drawIsland(){
     glEnd();
 }
 void drawTree(){
-    GLfloat brown[] = { 0.71f, 0.53f, 0.39f }; // light brown color
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, brown);
     glBegin(GL_QUADS);
     glVertex3fv(treeTop[0]);
     glVertex3fv(treeTop[1]);
@@ -388,12 +386,15 @@ void display(void)
     glPushMatrix();
     glTranslatef(10.0f, 0.5f, 4.0f);
     glScalef(0.5, 0.5, 0.5);
+    GLfloat brown[] = { 0.71f, 0.53f, 0.39f }; // light brown color
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, brown);
     drawTree();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(10.0f, 0.5f, 2.0f);
     glScalef(0.5, 0.5, 0.5);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, brown);
     drawTree();
     glPopMatrix();
 
@@ -491,6 +492,9 @@ void display(void)
         glEnd();
     }
 
+
+    GLfloat lightPosition[] = { cameraX, cameraY, cameraZ, 1.0f };
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
     importer.FreeScene();
     glutSwapBuffers();
     glFlush();
