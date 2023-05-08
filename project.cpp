@@ -24,6 +24,8 @@ float cameraY = 6.0f;
 float cameraZ = 16.0f;
 float angle = 0;
 int color = 0;
+float positionx = 0;
+float positionz = 0;
 
 GLuint ship;
 char ch='1';
@@ -466,7 +468,7 @@ if (!drawBool == false){
         glColor3f(0.5f, 0.35f, 0.05f);
     }
     
-    glTranslatef(0.0f, 50.0f, 0.0f);
+    glTranslatef(positionx, 50.0f, positionz);
     glRotatef(angle, 0.0f, 1.0f, 0.0f);
 
     if (!scene) {
@@ -559,6 +561,21 @@ void keyboard(unsigned char key, int x, int y) {
             break;
         case 'R':
             angle -= 5;
+            glutPostRedisplay();
+            break;
+        case 'w':
+            positionz += 5;
+            glutPostRedisplay();
+            break;
+        case 's':
+            positionz -= 5;
+            glutPostRedisplay();
+        case 'a':
+            positionx -= 5;
+            glutPostRedisplay();
+            break;
+        case 'd':
+            positionx += 5;
             glutPostRedisplay();
             break;
         case 'c':
