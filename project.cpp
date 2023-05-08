@@ -522,6 +522,16 @@ void keyboard(unsigned char key, int x, int y) {
             cameraY += 0.5f;
             glutPostRedisplay();
             break;
+        case 'p':
+            ALint state;
+            alGetSourcei(source, AL_SOURCE_STATE, &state);
+            if (state == AL_PLAYING) {
+                alSourcePause(source);
+            }
+            else if (state == AL_PAUSED) {
+                alSourcePlay(source);
+            }
+            break;
     }
 }
 
