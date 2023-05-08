@@ -7,8 +7,6 @@
 #include <AL/alc.h>
 #include <vector>
 #include <string>
-#include <SOIL2/include/SOIL2.h>
-#include <SOIL2.h>
 
 
 ALCdevice* device;
@@ -367,25 +365,9 @@ void display(void)
         exit(EXIT_FAILURE);
     }
 
-    // Load the materials and textures
-    std::vector<std::string> texturePaths;
-    for (unsigned int i = 0; i < scene->mNumMaterials; i++) {
-        aiMaterial* material = scene->mMaterials[i];
-        aiString texturePath;
-        if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath) == AI_SUCCESS) {
-            texturePaths.push_back(texturePath.C_Str());
-        }
-    }
-    std::vector<GLuint> textureIds(texturePaths.size());
-    for (size_t i = 0; i < texturePaths.size(); i++) {
-        textureIds[i] = SOIL_load_OGL_texture(texturePaths[i].c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-    }
-
     // Render the meshes
     for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
         aiMesh* mesh = scene->mMeshes[i];
-
-        glBindTexture(GL_TEXTURE_2D, textureIds[mesh->mMaterialIndex]);
 
         glBegin(GL_TRIANGLES);
         for (unsigned int j = 0; j < mesh->mNumFaces; j++) {
