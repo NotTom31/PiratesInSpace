@@ -1,5 +1,6 @@
 #include <GL/glut.h>
 #include <stdlib.h>
+#include<GL/gl.h>
 #include <cmath>
 #include <iostream>
 #include <AL/al.h>
@@ -8,10 +9,22 @@
 ALCdevice* device;
 ALCcontext* context;
 ALuint buffer, source;
+#include <stdio.h>
+
+#include<fstream>
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
+const char* MODEL_PATH = "Ship.obj";
 
 float cameraX = 0.0f;
 float cameraY = 6.0f;
 float cameraZ = 12.0f;
+
+GLuint ship;
+char ch='1';
 
 void init(void) 
 {
@@ -299,6 +312,15 @@ void drawPyramid()
     glEnd();
 }
 
+void drawBoat()
+{
+    glPushMatrix();
+ 	glTranslatef(0,5,0);
+    glScalef(0.1,0.1,0.1);
+    glCallList(ship);
+ 	glPopMatrix();
+}
+
 void display(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -326,6 +348,52 @@ void display(void)
     glTranslatef(-4.8f, 4.0f, -1.0f);
     drawPyramid();
     glPopMatrix();
+
+
+    Assimp::Importer importer;
+    const aiScene* scene = importer.ReadFile(MODEL_PATH, aiProcess_Triangulate | aiProcess_FlipUVs);
+
+    glScalef(0.05, 0.05, 0.05);
+    glColor3f(0.5f, 0.35f, 0.05f);
+    glTranslatef(0.0f, 50.0f, 0.0f);
+
+    if (!scene) {
+        std::cerr << "Failed to load model: " << importer.GetErrorString() << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
+        aiMesh* mesh = scene->mMeshes[i];
+
+        // Load the texture
+        aiString texturePath;
+        scene->mMaterials[mesh->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath);
+        //GLuint textureId = SOIL_load_OGL_texture(texturePath.C_Str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+
+        glBegin(GL_TRIANGLES);
+        for (unsigned int j = 0; j < mesh->mNumFaces; j++) {
+            aiFace face = mesh->mFaces[j];
+            for (unsigned int k = 0; k < face.mNumIndices; k++) {
+                unsigned int index = face.mIndices[k];
+                aiVector3D pos = mesh->mVertices[index];
+                aiVector3D normal = mesh->mNormals[index];
+                aiVector3D texcoord = mesh->mTextureCoords[0][index];
+                glNormal3f(normal.x, normal.y, normal.z);
+                glTexCoord2f(texcoord.x, texcoord.y);
+                glVertex3f(pos.x, pos.y, pos.z);
+            }
+        }
+        glEnd();
+
+        // Bind the texture
+        //glBindTexture(GL_TEXTURE_2D, textureId);
+    }
+
+
+
+
+    importer.FreeScene();
+    glutSwapBuffers();
 
 
     glFlush();
