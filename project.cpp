@@ -7,18 +7,15 @@
 #include <AL/alc.h>
 #include <vector>
 #include <string>
-
+#include <stdio.h>
+#include<fstream>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 ALCdevice* device;
 ALCcontext* context;
 ALuint buffer, source;
-#include <stdio.h>
-
-#include<fstream>
-
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
 
 const char* MODEL_PATH = "Ship.obj";
 
