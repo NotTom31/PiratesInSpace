@@ -480,7 +480,8 @@ if (!drawBool == false){
     glPushMatrix();
     glTranslatef(0.0f, 0.0f, 0.0f);
     drawStars();
-}   glPopMatrix();
+    glPopMatrix();
+}   
 
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(MODEL_PATH, aiProcess_Triangulate | aiProcess_FlipUVs);
