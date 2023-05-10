@@ -318,6 +318,37 @@ void drawPyramid()
     glEnd();
 }
 
+struct Star {
+    float x, y, z;
+};
+
+std::vector<Star> stars;
+
+void generateStars() {
+    // Set the seed for the random number generator
+    srand(time(nullptr));
+
+    // Generate 100 stars with random positions above the x-axis
+    for (int i = 0; i < 200; i++) {
+        float x = (rand() / (float)RAND_MAX) * 150.0f - 100.0f;
+        float y = (rand() / (float)RAND_MAX) * 150.0f - 100.0f;
+        float z = (rand() / (float)RAND_MAX) * 150.0f - 100.0f;
+        Star star = { x, y, z };
+        stars.push_back(star);
+    }
+}
+
+void drawStars() {
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glPointSize(5.0f);
+    glBegin(GL_POINTS);
+    for (const auto& star : stars) {
+        glVertex3f(star.x, star.y, star.z);
+    }
+    glEnd();
+}
+
+
 //void drawBoat()
 //{
 //    glPushMatrix();
@@ -445,7 +476,11 @@ if (!drawBool == false){
     glScalef(0.5,0.5,0.5);
     drawPyramid();
     glPopMatrix();
-}
+
+    glPushMatrix();
+    glTranslatef(0.0f, 0.0f, 0.0f);
+    drawStars();
+}   glPopMatrix();
 
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(MODEL_PATH, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -604,6 +639,7 @@ int main(int argc, char** argv)
    glutInitWindowSize (800, 800); 
    glutInitWindowPosition (100, 100);
    glutCreateWindow (argv[0]);
+   generateStars();
    init ();
    glutDisplayFunc(display); 
    glutReshapeFunc(reshape);
