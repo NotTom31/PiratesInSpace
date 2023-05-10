@@ -402,6 +402,11 @@ void display(void)
     drawIsland();
     glPopMatrix();
 
+    glPushMatrix();
+    glTranslatef(0.0f, 0.0f, 0.0f);
+    drawStars();
+    glPopMatrix();
+
 if (!drawBool == false){
 //right island trees
     glPushMatrix();
@@ -475,11 +480,6 @@ if (!drawBool == false){
     glTranslatef(-9.8f, 2.0f, -3.0f);
     glScalef(0.5,0.5,0.5);
     drawPyramid();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(0.0f, 0.0f, 0.0f);
-    drawStars();
     glPopMatrix();
 }   
 
